@@ -11,12 +11,12 @@ The tool is ideal for agile development environments where quick, accurate test 
 
 ## Tech Stack
 - **Frontend**: Vanilla JS, HTML5, CSS3
-- **Backend**: Flask, LangChain, HuggingFace
-- **Models**: BLIP
+- **Backend**: Flask, Transformers
+- **Models**: BLIP-2
 
 ## Project Snapshots
 ![Project UI]()
 
 ## Important Links
-- GitHub Repo: [Click here]()
+- GitHub Repo: [Click here](https://github.com/Adm-2005/Test-It)
 - Live Website: [Click here]()
