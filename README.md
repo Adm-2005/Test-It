@@ -15,7 +15,9 @@ The tool is ideal for agile development environments where quick, accurate test 
 - **Models**: BLIP-2
 
 ## Project Snapshots
-![Project UI]()
+![Project UI](https://github.com/user-attachments/assets/cc1d2aa7-3fcc-4f41-a3f6-c0499ea7858c)
+![Project UI](https://github.com/user-attachments/assets/bbc72021-9440-403a-b156-f5ae6a3bbfc9)
+
 
 ## Important Links
 - GitHub Repo: [Click here](https://github.com/Adm-2005/Test-It)
