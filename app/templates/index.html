@@ -44,6 +44,20 @@
             {% include 'uploadForm.html' %}
         </div>
     </section>
+    <div class="loader-overlay">
+        <div class="loader"></div>
+    </div>
+    <div class="result-modal">
+        <div class="modal-header">
+            <h1 class="hero-heading">Test Instructions</h1>
+            <button class="modal-close-button">
+                <span>&times;</span>
+            </button>
+        </div>
+        <div class="instructions-container">
+            <p class="instruction-results"></p>
+        </div>
+    </div>
     <footer>
         <div class="logo-container">
             <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-gear-fill" viewBox="0 0 16 16">
@@ -54,5 +68,6 @@
         <p>Thanks for using Test-It! Hope you liked it.</p>
         <p>&copy; Copyright <a href="https://akshatmishra.onrender.com" target="_blank">Akshat Mishra</a>. All Rights Reserved.</p>
     </footer>
+    <script src="../static/js/index.js"></script>
 </body>
 </html>

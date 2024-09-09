@@ -1,9 +1,10 @@
 import os
 from app import app
+from PIL import Image
+from app import processor, model
 from app.forms import UploadForm
 from werkzeug.utils import secure_filename
 from flask import render_template, request, jsonify
-from services.instruction_generation import generate_instructions
 
 @app.route('/', methods=['GET', 'POST'])
 @app.route('/home', methods=['GET', 'POST'])
@@ -24,3 +25,17 @@ def index():
         return jsonify({'instructions': instructions})
 
     return render_template('index.html', form=form)
+
+def generate_instructions(image_paths, context):
+    prompt = f"You are a helpful assistant to a Quality Assurance Engineer, use the given images of the software and context:{context} to generate instructions to test the software that should include following details: 1.Description of the test case 2.Preconditions 3.Step-by-step instructions 4.Expected result"
+
+    images = [Image.open(img_path) for img_path in image_paths]
+
+    inputs = processor(images=images, text=prompt, return_tensors="pt")
+    # inputs = {k: v.to(device) for k, v in inputs.items()}
+
+    generated_ids = model.generate(pixel_values=inputs['pixel_values'], max_new_tokens=150)
+
+    instructions = processor.decode(generated_ids[0], skip_special_tokens=True)
+
+    return instructions
