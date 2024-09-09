@@ -290,12 +290,30 @@ footer > .logo-container{
 }
 
 .result-modal{
+    top: 100%;
+    left: 40%;
+    padding: 20px;
     display: none;
+    overflow: hidden;
     min-height: 400px;
-    overflow: scroll;
+    position: relative;
+    border-radius: 12px;
+    border: var(--secondary-color) 1px solid;
 }
 
 .modal-header{
     display: flex;
     justify-content: space-between;
+}
+
+.modal-close-button{
+    padding: 2px 2px;
+    color: var(--secondary-color);
+    background-color: transparent;
+}
+
+.instruction-results{
+    font-family: Inter;
+    font-size: 1rem;
+    color: var(--accent-color);
 }

@@ -27,6 +27,9 @@ document.addEventListener('DOMContentLoaded', function() {
             modal.style.display = 'flex';
         })
         .catch(error => {
+            console.log(error.data)
+            loader.display.style = "none";
+            loaderOverlay.display.style = "none";
             alert('An error occurred while processing the request.');
         });
     });
