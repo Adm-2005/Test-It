@@ -1,8 +1,0 @@
-# environment files
-venv/
-.env 
-.flaskenv
-
-# python cache files
-__pycache__/
-pyvenv.cfg
