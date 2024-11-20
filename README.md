@@ -27,6 +27,3 @@ Test-It! is a powerful, user-friendly testing tool designed to streamline the pr
 ## Important Links
 - **GitHub Repository**: [Click Here]("https://github.com/Adm-2005/Test-It")
 - **Live Project**: Coming Soon...
-
-## License
-This project is under MIT License. 

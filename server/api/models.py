@@ -9,6 +9,9 @@ from werkzeug.security import check_password_hash, generate_password_hash
 class Session(BaseModel):
     id: Optional[PydanticObjectId] = Field(None, alias='_id')
     project_id: Optional[PydanticObjectId] = Field(None)
+    name: str
+    scope: str
+    context: Optional[str]
     inputImages: Optional[List[str]] = Field(default_factory=list)
     inputCode: Optional[str]
     output: Optional[str]
@@ -41,7 +44,9 @@ class Session(BaseModel):
 
 class Project(BaseModel):
     id: Optional[PydanticObjectId] = Field(None, alias='_id')
-    user_id: str
+    user_id: Optional[PydanticObjectId] = Field(None)
+    project_name: str
+    organization: Optional[str]
     sessions: Optional[List[PydanticObjectId]] = Field(default_factory=list)
     created_at: datetime.datetime = Field(datetime.datetime.now(tz=datetime.timezone.utc)) 
     updated_at: datetime.datetime = Field(datetime.datetime.now(tz=datetime.timezone.utc))
