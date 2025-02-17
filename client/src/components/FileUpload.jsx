@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { IconContext } from "react-icons/lib";
 import { MdUploadFile } from "react-icons/md";
 import { MdClear } from "react-icons/md";
@@ -13,7 +13,8 @@ export default function FileUpload({ images, setImages }) {
         const droppedImages = Array.from(event.dataTransfer.files); 
 
         if(images.length < 4) {
-            const newImages = droppedImages.slice(0, 4 - images.length); // adding files only till max limit is reached
+            // e.g. if images already has 3 images only (0, 1) will be sliced from new dropped files
+            const newImages = droppedImages.slice(0, 4 - images.length); 
             setImages((prevImages) => [...prevImages, ...newImages]);
         }
 
@@ -24,7 +25,7 @@ export default function FileUpload({ images, setImages }) {
         const selectedImages = Array.from(event.target.files);
 
         if(images.length < 4) {
-            const newImages = selectedImages.slice(0, 4 - images.length); // adding files only till max limit is reached 
+            const newImages = selectedImages.slice(0, 4 - images.length);
             setImages((prevImages) => [...prevImages, ...newImages]);
         }
     };
@@ -50,7 +51,7 @@ export default function FileUpload({ images, setImages }) {
             <p className='text-slate-600'>Supported files: .jpg, .jpeg, .png </p> 
             {
                 images.length >= 4
-                ? (<p className='text-md text-red-600'>File Limit Reached.</p>) // disable input when max limit is reached
+                ? (<p className='text-md text-red-600'>File Limit Reached.</p>) // no upload option once limit is reached.
                 : (
                 <div className='m-3'>
                     <input

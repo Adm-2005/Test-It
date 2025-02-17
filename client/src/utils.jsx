@@ -72,12 +72,12 @@ const featureGroups = [
     },
     {
         name: 'Project Organization',
-        text: 'Create and manage multiple projects or collections, keeping all your test instructions organized for easy access and tracking.',
+        text: 'Easily organize and manage your test instructions across multiple projects, ensuring quick access and seamless tracking of all your testing activities.',
         icon: ''
     }, 
     {
         name: 'Collaborate with Others',
-        text: 'Share your test instructions with teammates and clients, making collaboration on test cases smoother and more efficient.',
+        text: 'Effortlessly share test instructions with team members or clients, enabling smooth collaboration and streamlined review processes for your projects.',
         icon: ''
     }
 ];

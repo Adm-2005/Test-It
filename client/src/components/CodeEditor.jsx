@@ -8,7 +8,7 @@ export default function CodeEditor({ code, setCode }) {
     }
 
     return (
-        <div className='flex justify-center items-center w-[250px] md:w-[400px]'>
+        <div className='flex justify-center items-center w-[250px] md:w-[400px] lg:w-[600px]'>
             <Editor 
                 height='50vh' 
                 width="100%" 

@@ -1,26 +1,40 @@
+# external imports
 from flask import Flask
+from flask_cors import CORS
 from flask_pymongo import PyMongo
+from logging.config import dictConfig
 from flask_jwt_extended import JWTManager
+
+# internal imports
+from api.config import Config
+from api.errors import register_error_handlers
 
 mongo = PyMongo()
 jwt = JWTManager()
 
-def create_app(config_object):
+def create_app(config_object = Config):
+    dictConfig(config_object.LOGGING_CONFIG)
     app = Flask(__name__)
     app.config.from_object(config_object)
     
+    CORS(
+        app,
+        origins=[app.config.get('CLIENT_URL')],
+        allow_headers=['Authorization', 'Content-Type'],
+        supports_credentials=True
+    )
     mongo.init_app(app)
     jwt.init_app(app)
 
-    #importing blueprints inside factory function to avoid circular import
-    from api.auth import auth_bp
-    from api.model import model_bp
+    register_error_handlers(app)
+
+    # importing blueprints inside factory function to avoid circular import
+    from api.users import user_bp
     from api.projects import proj_bp
     from api.sessions import sess_bp
 
-    app.register_blueprint(auth_bp, url_prefix="/auth")
-    app.register_blueprint(proj_bp, url_prefix="/projects")
-    app.register_blueprint(sess_bp, url_prefix="/sessions")
-    app.register_blueprint(model_bp, url_prefix="/model")
+    app.register_blueprint(user_bp, url_prefix='/users')
+    app.register_blueprint(proj_bp, url_prefix='/projects')
+    app.register_blueprint(sess_bp, url_prefix='/sessions')
 
     return app
