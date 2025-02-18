@@ -1,4 +1,6 @@
 import re
+from flask import abort
+from bson import ObjectId
 
 def password_validator(password: str) -> bool:
     """
@@ -39,3 +41,18 @@ def email_validator(email: str) -> bool:
         r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$', 
         email
     )
+
+def objectid_validator(id: str) -> ObjectId:
+    """
+    Checks if the passed id is a valid ObjectId.
+
+    Args:
+        id: id to be validated.
+
+    Returns:
+        [ObjectId]: converted id.
+    """
+    if not ObjectId.is_valid(id):
+        abort(400, 'Invalid object id.')
+
+    return ObjectId(id)

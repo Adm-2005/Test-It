@@ -1,5 +1,6 @@
 # external imports
 import datetime as dt
+from typing import Dict, Tuple, Any
 from flask import request, current_app, jsonify, abort
 from flask_jwt_extended import (
     create_access_token, 
@@ -16,7 +17,7 @@ from api.db.pydantic_objectid import PydanticObjectId
 from api.utils.validators import email_validator, username_validator, password_validator
 
 @user_bp.route('/auth/register', methods=['POST'])
-def register():
+def register() -> Tuple[Dict[str, Any], int]:
     users = mongo.db.users
 
     try:
@@ -65,7 +66,7 @@ def register():
         raise e
     
 @user_bp.route('/auth/login', methods=['POST'])
-def login():
+def login() -> Tuple[Dict[str, Any]]:
     users = mongo.db.users
 
     try:
@@ -110,7 +111,8 @@ def login():
         raise e
     
 @user_bp.route('/auth/refresh', methods=['POST'])
-def refresh():
+@jwt_required(refresh=True)
+def refresh() -> Tuple[Dict[str, Any], int]:
     try:
         user_id = get_jwt_identity()
         new_access_token = create_access_token(

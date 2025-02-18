@@ -13,7 +13,6 @@ class User(Serialization):
     id: Optional[PydanticObjectId] = Field(alias='_id', default=None)
     first_name: Optional[str] = Field(default='')
     last_name: Optional[str] = Field(default='')
-    organization: Optional[str] = Field(default='')
     email: str 
     username: str 
     password_hash: str
