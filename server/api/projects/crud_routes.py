@@ -78,7 +78,7 @@ def get_project(id: str) -> Tuple[Dict[str, Any], int]:
         project = Project(**res)
 
         return jsonify({
-            'message': 'Project found successfully.',
+            'message': 'Project fetched successfully.',
             'data': {
                 'project': project.to_json()
             }

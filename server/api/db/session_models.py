@@ -1,9 +1,8 @@
 # external imports
 import pytz
-import torch
 import datetime as dt
 from pydantic import Field
-from typing import Optional
+from typing import Optional, List
 
 # internal imports
 from api.db.base_models import Serialization
@@ -15,7 +14,7 @@ class Session(Serialization):
     name: str 
     scope: str
     context: Optional[str] = Field(default='')
-    input_images: Optional[torch.Tensor] = Field(default=None)
+    input_images: Optional[List[str]] = Field(default=None) # list contains paths to image files
     input_code: Optional[str] = Field(default='')
     generated_response: Optional[str] = Field(default='')
     created_at: dt.datetime = Field(default=lambda: dt.datetime.now(tz=pytz.timezone('Asia/Kolkata')))

@@ -6,6 +6,7 @@ load_dotenv(os.path.join(base_dir, '.env'))
 
 class Config:
     TESTING = os.getenv('TESTING', 'False').lower() in ['ok', 'true', 'yes']
+    IMAGE_DIR = os.getenv('IMAGE_DIR')
     CLIENT_URL = os.getenv('CLIENT_URL')
     MONGODB_URI = os.getenv('MONGODB_URI', 'mongodb://localhost:27017/defaultdb')
     SECRET_KEY = os.getenv('SECRET_KEY', 'aslkdfjawoeijqo4eij')
