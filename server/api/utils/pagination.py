@@ -12,7 +12,7 @@ def pagination_links(endpoint: str, total_count: int, page: int, per_page: int) 
         per_page: number of items per page.
 
     Returns:
-        [Dict[str, Any]]: links dictionary.
+        Dict[str, Any]: links dictionary.
     """
     links = {
         'self': { 'href': url_for(endpoint, page=page, _external=True) },

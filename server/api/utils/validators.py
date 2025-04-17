@@ -37,10 +37,8 @@ def email_validator(email: str) -> bool:
     Returns:
         [bool]: True if email is valid
     """
-    return re.match(
-        r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$', 
-        email
-    )
+    pattern = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
+    return re.match(pattern, email)
 
 def objectid_validator(id: str) -> ObjectId:
     """
@@ -50,9 +48,12 @@ def objectid_validator(id: str) -> ObjectId:
         id: id to be validated.
 
     Returns:
-        [ObjectId]: converted id.
+        ObjectId: converted id.
+
+    Raises:
+        TypeError: when the object id is not valid.
     """
     if not ObjectId.is_valid(id):
-        abort(400, 'Invalid object id.')
+        raise TypeError('Not a valid object id.')
 
     return ObjectId(id)

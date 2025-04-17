@@ -4,7 +4,7 @@ import datetime as dt
 from typing import Dict, Tuple, Any
 from flask_jwt_extended import jwt_required
 from pymongo import ReturnDocument, DESCENDING
-from flask import request, current_app, jsonify, abort
+from flask import request, current_app, jsonify, abort, send_file, Response
 
 # internal imports
 from api import mongo
@@ -13,7 +13,8 @@ from api.db.session_models import Session
 from api.utils.pagination import pagination_links
 from api.utils.validators import objectid_validator
 from api.db.pydantic_objectid import PydanticObjectId
-from api.sessions.response_services import handle_code_input, handle_image_input
+from api.utils.image_handling import save_images_to_dir, zip_images
+from api.sessions.response_services import gen_response_for_img, gen_response_for_code
 
 @sess_bp.route('/create/<string:proj_id>', methods=['POST'])
 @jwt_required()
@@ -30,7 +31,10 @@ def create_session(proj_id: str) -> Tuple[Dict[str, Any], int]:
     sessions = mongo.db.sessions
 
     try:
-        _ = objectid_validator(proj_id)
+        try:
+            _ = objectid_validator(proj_id)
+        except TypeError as te:
+            abort(400, 'Not a valid object id.')
 
         data = request.get_json()
         name = data.get('name', '').strip()
@@ -45,10 +49,11 @@ def create_session(proj_id: str) -> Tuple[Dict[str, Any], int]:
         code = data.get('input_code')
 
         if images:
-            generated_response = handle_image_input(images, name, scope)
+            saved_img_paths = save_images_to_dir(images, )
+            generated_response = gen_response_for_img(saved_img_paths, name, scope)
 
         if code:
-            generated_response = handle_code_input(code, name, scope)
+            generated_response = gen_response_for_code(code, name, scope)
 
         if not images and not code:
             abort(400, 'No input to generate test cases.')
@@ -88,7 +93,10 @@ def get_session(id: str) -> Tuple[Dict[str, Any], int]:
     sessions = mongo.db.sessions
 
     try:
-        id_obj = objectid_validator(id)
+        try:
+            id_obj = objectid_validator(id)
+        except TypeError as te:
+            abort(400, 'Not a valid object id.')
 
         res = sessions.find_one({'_id': id_obj})
         if not res:
@@ -123,7 +131,10 @@ def get_all_sessions(proj_id: str) -> Tuple[Dict[str, Any], int]:
     projects = mongo.db.projects
 
     try:
-        proj_id_obj = objectid_validator(proj_id)
+        try:
+            proj_id_obj = objectid_validator(proj_id)
+        except TypeError as te:
+            abort(400, 'Not a valid object id.')
 
         project = projects.find_one({'_id': proj_id_obj})
         if not project:
@@ -150,6 +161,46 @@ def get_all_sessions(proj_id: str) -> Tuple[Dict[str, Any], int]:
     except Exception as e:
         current_app.logger.error('Error while fetching all sessions for user %s: %s', proj_id, e)
         raise e
+    
+@sess_bp.route('/<string:id>/images', methods=['GET'])
+@jwt_required()
+def get_images_in_session(id: str) -> Response:
+    """
+    Endpoint to fetch all images in a session.
+
+    Args:
+        id: 
+
+    Returns:
+        Response
+    """
+    sessions = mongo.db.sessions
+
+    try:
+        try:
+            id_obj = objectid_validator(id)
+        except TypeError as te:
+            abort(400, 'Not a valid object id.')
+
+        res = sessions.find_one({'_id': id_obj})
+        if not res:
+            abort(404, 'Session not found.')
+
+        session = Session(**res)
+        images = session.input_images
+        if not images:
+            abort(404, 'No images found.')
+
+        zip_stream = zip_images(images)
+        return send_file(
+            zip_stream,
+            mimetype='application/zip',
+            as_attachment=True
+        )
+    
+    except Exception as e:
+        current_app.logger.error('Error while fetching images for the session %s: %s', id, e)
+        raise e
 
 @sess_bp.route('/<string:id>', methods=['PUT'])
 @jwt_required()
@@ -166,7 +217,10 @@ def update_session(id: str) -> Tuple[Dict[str, Any]]:
     sessions = mongo.db.sessions
 
     try:
-        id_obj = objectid_validator(id)
+        try:
+            id_obj = objectid_validator(id)
+        except TypeError as te:
+            abort(400, 'Not a valid object id.')
 
         data = request.get_json()
         if not data:
@@ -185,15 +239,16 @@ def update_session(id: str) -> Tuple[Dict[str, Any]]:
         if not res:
             abort(404, 'Session not found.')
 
-        images = request.files.get('input_images', res['input_image'])
+        images = request.files.get('input_images')
         if images:
-            res['generated_response'] = handle_image_input(images, res['name'], res['scope'])
+            saved_img_paths = save_images_to_dir(images)
+            res['generated_response'] = gen_response_for_img(saved_img_paths, res['name'], res['scope'])
 
-        code = data.get('code', None)
+        code = data.get('input_code', None)
         if code: 
-            res['generated_response'] = handle_code_input(code, res['name'], res['scope'])
+            res['generated_response'] = gen_response_for_code(code, res['name'], res['scope'])
 
-        # final update to 
+        # final update to set generated response
         sessions.find_one_and_update(
             {'_id': id_obj},
             {'$set': res},
