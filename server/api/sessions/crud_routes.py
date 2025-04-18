@@ -29,6 +29,7 @@ def create_session(proj_id: str) -> Tuple[Dict[str, Any], int]:
         Tuple[Dict[str, Any], int]: response, status code.
     """
     sessions = mongo.db.sessions
+    IMAGE_DIR = current_app.config.get('IMAGE DIR')
 
     try:
         try:
@@ -49,7 +50,7 @@ def create_session(proj_id: str) -> Tuple[Dict[str, Any], int]:
         code = data.get('input_code')
 
         if images:
-            saved_img_paths = save_images_to_dir(images, )
+            saved_img_paths = save_images_to_dir(images, IMAGE_DIR)
             generated_response = gen_response_for_img(saved_img_paths, name, scope)
 
         if code:
@@ -91,7 +92,7 @@ def get_session(id: str) -> Tuple[Dict[str, Any], int]:
         Tuple[Dict[str, Any], int]: response, status code.
     """
     sessions = mongo.db.sessions
-
+    
     try:
         try:
             id_obj = objectid_validator(id)
@@ -215,6 +216,7 @@ def update_session(id: str) -> Tuple[Dict[str, Any]]:
         Tuple[Dict[str, Any], int]: response, status code.
     """
     sessions = mongo.db.sessions
+    IMAGE_DIR = current_app.config.get('IMAGE DIR')
 
     try:
         try:
@@ -241,7 +243,7 @@ def update_session(id: str) -> Tuple[Dict[str, Any]]:
 
         images = request.files.get('input_images')
         if images:
-            saved_img_paths = save_images_to_dir(images)
+            saved_img_paths = save_images_to_dir(images, IMAGE_DIR)
             res['generated_response'] = gen_response_for_img(saved_img_paths, res['name'], res['scope'])
 
         code = data.get('input_code', None)

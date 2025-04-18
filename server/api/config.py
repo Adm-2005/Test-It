@@ -8,6 +8,8 @@ class Config:
     TESTING = os.getenv('TESTING', 'False').lower() in ['ok', 'true', 'yes']
     IMAGE_DIR = os.getenv('IMAGE_DIR')
     CLIENT_URL = os.getenv('CLIENT_URL')
+    GROQ_API_KEY = os.getenv('GROQ_API_KEY')
+    HF_TOKEN = os.getenv('HF_TOKEN')
     MONGODB_URI = os.getenv('MONGODB_URI', 'mongodb://localhost:27017/defaultdb')
     SECRET_KEY = os.getenv('SECRET_KEY', 'aslkdfjawoeijqo4eij')
     JWT_SECRET = os.getenv('JWT_SECRET', 'zdskaoisefoewqweorwejakldsfawoeiiq132416459844i3dzk')

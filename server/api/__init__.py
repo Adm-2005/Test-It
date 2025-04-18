@@ -8,6 +8,7 @@ from flask_jwt_extended import JWTManager
 # internal imports
 from api.config import Config
 from api.errors import register_error_handlers
+from api.utils.model_handling import load_captioning_model
 
 mongo = PyMongo()
 jwt = JWTManager()
@@ -27,6 +28,11 @@ def create_app(config_object = Config):
     jwt.init_app(app)
 
     register_error_handlers(app)
+
+    try:
+        app.blip_processor, app.blip_model = load_captioning_model('Salesforce/blip-image-captioning-base')    
+    except RuntimeError as re:
+        app.logger.error(str(re))
 
     # importing blueprints inside factory function to avoid circular import
     from api.users import user_bp
