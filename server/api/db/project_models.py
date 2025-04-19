@@ -12,8 +12,8 @@ class Project(Serialization):
     id: Optional[PydanticObjectId] = Field(alias='_id', default=None)
     user_id: Optional[PydanticObjectId] = Field(default=None)
     name: str
-    organization: Optional[str] = Field(default='')
-    created_at: dt.datetime = Field(default=lambda: dt.datetime.now(tz=pytz.timezone('Asia/Kolkata')))
+    organization: Optional[str] = Field(default=None)
+    created_at: dt.datetime = Field(default_factory=lambda: dt.datetime.now(tz=pytz.timezone('Asia/Kolkata')))
     updated_at: Optional[dt.datetime] = Field(default=None)
 
     def set_updated_at(self):

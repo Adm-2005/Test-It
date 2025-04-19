@@ -41,7 +41,8 @@ def create_project() -> Tuple[Dict[str, Any], int]:
         project.set_updated_at()
 
         proj_id = str(projects.insert_one(project.to_bson()).inserted_id)
-        project.id = PydanticObjectId(proj_id)
+        project.id = proj_id
+        project.user_id = str(project.user_id) # converting back to string to allow json serialization
 
         return jsonify({
             'message': 'Project created successfully.',

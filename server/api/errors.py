@@ -28,15 +28,6 @@ def register_error_handlers(app: Flask) -> None:
         }
         return jsonify(response), 401
     
-    @app.errorhandler(402)
-    def payment_required(error):
-        response = {
-            'status_code': 402,
-            'message': 'Payment Required.',
-            'error': str(error)
-        }
-        return jsonify(response), 402
-    
     @app.errorhandler(403)
     def forbidden(error):
         response = {

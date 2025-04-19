@@ -62,11 +62,11 @@ def create_session(proj_id: str) -> Tuple[Dict[str, Any], int]:
         data['generated_response'] = generated_response
 
         session = Session(**data)
-        session.proj_id = PydanticObjectId(proj_id)
+        session.proj_id = proj_id
         session.set_updated_at()
 
         sess_id = str(sessions.insert_one(session.to_bson()).inserted_id)
-        session.id = PydanticObjectId(sess_id)
+        session.id = sess_id
 
         return jsonify({
             'message': 'Session created successfully.',

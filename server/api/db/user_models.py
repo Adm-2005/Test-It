@@ -15,8 +15,8 @@ class User(Serialization):
     last_name: Optional[str] = Field(default='')
     email: str 
     username: str 
-    password_hash: str
-    created_at: dt.datetime = Field(default=lambda: dt.datetime.now(tz=pytz.timezone('Asia/Kolkata')))
+    password_hash: Optional[str] = Field(default='')
+    created_at: dt.datetime = Field(default_factory=lambda: dt.datetime.now(tz=pytz.timezone('Asia/Kolkata')))
 
     def get_password_hash(self, password: str) -> None:
         self.password_hash = generate_password_hash(password)

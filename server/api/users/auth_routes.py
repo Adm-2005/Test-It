@@ -44,7 +44,7 @@ def register() -> Tuple[Dict[str, Any], int]:
         user = User(**data)
         user.get_password_hash(password)
         user_id = str(users.insert_one(user.to_bson()).inserted_id)
-        user.id = PydanticObjectId(user_id)
+        user.id = user_id
 
         return jsonify({
             'message': 'User registered successfully.',
@@ -52,11 +52,11 @@ def register() -> Tuple[Dict[str, Any], int]:
                 'user': user.to_json(),
                 'access_token': create_access_token(
                     identity=user_id, 
-                    expires_delta=dt.timedelta(seconds=current_app.config.JWT_ACCESS_TOKEN_EXPIRES)
+                    expires_delta=dt.timedelta(seconds=current_app.config.get('JWT_ACCESS_TOKEN_EXPIRES'))
                 ),
                 'refresh_token': create_refresh_token(
                     identity=user_id,
-                    expires_delta=dt.timedelta(seconds=current_app.config.JWT_REFRESH_TOKEN_EXPIRES)
+                    expires_delta=dt.timedelta(seconds=current_app.config.get('JWT_REFRESH_TOKEN_EXPIRES'))
                 )
             }
         }), 201

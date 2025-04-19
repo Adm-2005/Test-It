@@ -17,7 +17,7 @@ class Session(Serialization):
     input_images: Optional[List[str]] = Field(default=None) # list contains paths to image files
     input_code: Optional[str] = Field(default='')
     generated_response: Optional[str] = Field(default='')
-    created_at: dt.datetime = Field(default=lambda: dt.datetime.now(tz=pytz.timezone('Asia/Kolkata')))
+    created_at: dt.datetime = Field(default_factory=lambda: dt.datetime.now(tz=pytz.timezone('Asia/Kolkata')))
     updated_at: Optional[dt.datetime] = Field(default=None)
 
     def set_updated_at(self):
