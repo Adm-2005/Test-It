@@ -89,7 +89,7 @@ def get_project(id: str) -> Tuple[Dict[str, Any], int]:
         current_app.logger.error('Error while fetching project %s: %s', id, e)
         raise e
 
-@proj_bp.route('/<string:user_id>', methods=['GET'])
+@proj_bp.route('/user/<string:user_id>', methods=['GET'])
 @jwt_required()
 def get_all_projects(user_id: str) -> Tuple[Dict[str, Any], int]:
     """
@@ -206,7 +206,9 @@ def delete_project(id: str) -> Tuple[Dict[str, Any], int]:
 
         return jsonify({
             'message': 'Project deleted successfully.',
-            'data': None
+            'data': {
+                'deleted_proj_id': id
+            }
         }), 200
 
     except Exception as e:

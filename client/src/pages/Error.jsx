@@ -9,7 +9,6 @@ export default function Error() {
         <div className='flex flex-col gap-5'>
             <Navbar />
 
-            {/* Error Message */}
             <div className='flex flex-col lg:flex-row justify-center items-center'>
                 <IconContext.Provider value={{ size: '300px', color: '#b91c1c', className: '' }}>
                     <BiSolidError />

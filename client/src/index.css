@@ -3,81 +3,81 @@
 @tailwind utilities;
 
 @font-face {
-  font-display: swap;
-  font-family: "Poppins";
-  font-style: normal;
-  font-weight: 400;
-  src: url("/fonts/poppins-regular-webfont.woff2") format("woff2");
+    font-display: swap;
+    font-family: "Poppins";
+    font-style: normal;
+    font-weight: 400;
+    src: url("/fonts/poppins-regular-webfont.woff2") format("woff2");
 }
 
 @font-face {
-  font-display: swap;
-  font-family: "Poppins";
-  font-style: normal;
-  font-weight: 700;
-  src: url("/fonts/poppins-semibold-webfont.woff2") format("woff2");
+    font-display: swap;
+    font-family: "Poppins";
+    font-style: normal;
+    font-weight: 700;
+    src: url("/fonts/poppins-semibold-webfont.woff2") format("woff2");
 }
 
 @font-face {
-  font-display: swap;
-  font-family: "Poppins";
-  font-style: normal;
-  font-weight: 900;
-  src: url("/fonts/poppins-bold-webfont.woff2") format("woff2");
+    font-display: swap;
+    font-family: "Poppins";
+    font-style: normal;
+    font-weight: 900;
+    src: url("/fonts/poppins-bold-webfont.woff2") format("woff2");
 }
 
 @font-face {
-  font-display: swap;
-  font-family: "Josefin Sans";
-  font-style: normal;
-  font-weight: 400;
-  src: url("/fonts/JosefinSans-Regular.woff2") format("woff2");
+    font-display: swap;
+    font-family: "Josefin Sans";
+    font-style: normal;
+    font-weight: 400;
+    src: url("/fonts/JosefinSans-Regular.woff2") format("woff2");
 }
 
 @font-face {
-  font-display: swap;
-  font-family: "Josefin Sans";
-  font-style: normal;
-  font-weight: 700;
-  src: url("/fonts/JosefinSans-SemiBold.woff2") format("woff2");
+    font-display: swap;
+    font-family: "Josefin Sans";
+    font-style: normal;
+    font-weight: 700;
+    src: url("/fonts/JosefinSans-SemiBold.woff2") format("woff2");
 }
 
 @font-face {
-  font-display: swap;
-  font-family: "Josefin Sans";
-  font-style: normal;
-  font-weight: 900;
-  src: url("/fonts/JosefinSans-Bold.woff2") format("woff2");
+    font-display: swap;
+    font-family: "Josefin Sans";
+    font-style: normal;
+    font-weight: 900;
+    src: url("/fonts/JosefinSans-Bold.woff2") format("woff2");
 }
 
 @layer components {
-  .btn {
-    border-radius: 9999px;
-    padding: 8px 16px;
-    min-width: 150px;
-    font-family: "Poppins", "sans-serif";
-    font-weight: 700;
-  }
+    .btn {
+        border-radius: 9999px;
+        padding: 8px 16px;
+        min-width: 150px;
+        font-family: "Poppins", "sans-serif";
+        font-weight: 700;
+    }
 
-  .btn-accent {
-    color: #3b0764;
-    background-color: #ffb05a;
-  }
+    .btn-accent {
+        color: #3b0764;
+        background-color: #ffb05a;
+    }
 
-  .btn-accent:hover {
-    color: #ffb05a;
-    border: 1px solid #ffb05a;
-    background-color: #3b0764;
-  }
+    .btn-accent:hover {
+        color: #ffb05a;
+        border: 1px solid #ffb05a;
+        background-color: #3b0764;
+    }
 
-  .btn-primary {
-    color: #ffb05a;
-    border: 1px solid #ffb05a;
-    background-color: #3b0764;
-  }
+    .btn-primary {
+        color: #ffb05a;
+        border: 1px solid #ffb05a;
+        background-color: #3b0764;
+    }
 
-  .btn-primary:hover {
-    color: #3b0764;
-    background-color: #ffb05a;
-  }
+    .btn-primary:hover {
+        color: #3b0764;
+        background-color: #ffb05a;
+    }
 }

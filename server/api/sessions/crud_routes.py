@@ -10,6 +10,7 @@ from flask import request, current_app, jsonify, abort, send_file, Response
 from api import mongo
 from api.sessions import sess_bp
 from api.db.session_models import Session
+from api.db.project_models import Project
 from api.utils.pagination import pagination_links
 from api.utils.validators import objectid_validator
 from api.db.pydantic_objectid import PydanticObjectId
@@ -116,7 +117,7 @@ def get_session(id: str) -> Tuple[Dict[str, Any], int]:
         current_app.logger.error('Error while fetching session %s: %s', id, e)
         raise e
 
-@sess_bp.route('/<string:proj_id>', methods=['GET'])
+@sess_bp.route('/project/<string:proj_id>', methods=['GET'])
 @jwt_required()
 def get_all_sessions(proj_id: str) -> Tuple[Dict[str, Any], int]:
     """
@@ -293,7 +294,9 @@ def delete_session(id: str) -> Tuple[Dict[str, Any]]:
         
         return jsonify({
             'message': 'Session deleted successfully.',
-            'data': None
+            'data': {
+                'deleted_session': Session(**res).to_json()
+            }
         }), 200
 
     except Exception as e:

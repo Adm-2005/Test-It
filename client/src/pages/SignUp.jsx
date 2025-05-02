@@ -10,11 +10,11 @@ export default function SignUp() {
             <Navbar />
             
             <section className='flex flex-grow justify-center items-center'>
-                <form action='' method='post' className='bg-black/20 max-w-md w-[90%] flex flex-col gap-4 p-12 rounded-xl' noValidate>
+                <form action='' method='post' className='bg-black/20 max-w-md w-[90%] flex flex-col gap-4 p-8 md:p-12 rounded-xl' noValidate>
                     <h1 className='text-accent text-center text-xl font-bold font-josefin'>Join Test-It!</h1>
                     <div className='flex flex-col gap-2'>
-                        <label className='font-poppins text-lg text-white'>Full Name</label>
-                        <input type='text' className='p-1 rounded-sm focus:outline-accent'></input>
+                        <label className='font-poppins text-md text-white'>Full Name</label>
+                        <input type='text' className='px-3 py-2 rounded-sm focus:outline-accent'></input>
                         <span id='error-cont' className='hidden text-red-600 text-xs'>
                             <div className='flex gap-2 items-center'>
                                 <IconContext.Provider value={{ size: '20px' }}>
@@ -26,8 +26,8 @@ export default function SignUp() {
                     </div>
 
                     <div className='flex flex-col gap-2'>
-                        <label className='font-poppins text-lg text-white'>Email</label>
-                        <input type='email' className='p-1 rounded-sm focus:outline-accent'></input>
+                        <label className='font-poppins text-md text-white'>Email</label>
+                        <input type='email' className='px-3 py-2 rounded-sm focus:outline-accent'></input>
                         <span id='error-cont' className='hidden text-red-600 text-xs'>
                             <div className='flex gap-2 items-center'>
                                 <IconContext.Provider value={{ size: '20px' }}>
@@ -39,8 +39,8 @@ export default function SignUp() {
                     </div>
 
                     <div className='flex flex-col gap-2'>
-                        <label className='font-poppins text-lg text-white'>Password</label>
-                        <input type='password' className='p-1 rounded-sm focus:outline-accent'></input>
+                        <label className='font-poppins text-md text-white'>Password</label>
+                        <input type='password' className='px-3 py-2 rounded-sm focus:outline-accent'></input>
                         <span id='error-cont' className='hidden text-red-600 text-xs'>
                             <div className='flex gap-2 items-center'>
                                 <IconContext.Provider value={{ size: '20px' }}>
@@ -52,8 +52,8 @@ export default function SignUp() {
                     </div>
 
                     <div className='flex flex-col gap-2'>
-                        <label className='font-poppins text-lg text-white'>Confirm Password</label>
-                        <input type='password' className='p-1 rounded-sm focus:outline-accent'></input>
+                        <label className='font-poppins text-md text-white'>Confirm Password</label>
+                        <input type='password' className='px-3 py-2 rounded-sm focus:outline-accent'></input>
                         <span id='error-cont' className='hidden text-red-600 text-xs'>
                             <div className='flex gap-2 items-center'>
                                 <IconContext.Provider value={{ size: '20px' }}>
